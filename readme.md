@@ -12,7 +12,8 @@ files. And you'll probably want to clone the repo on your server rather than
 locally.
 
 - Clone this repo
-- Replace the content of `identity.pub` with your own SSH public key.
+- Create the `identity.pub` file with your own SSH public key. Look in
+    `identity.pub.sample` for help.
 - Adjust file permissions:
 ```
 chmod 644 identity.pub
