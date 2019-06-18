@@ -29,3 +29,35 @@ chmod 644 identity.pub
       ./start_tunnel.sh 3000 whatever.your.domain.is
     ```
 - Open browser to whatever.your.domain.is and you should see an "It works!"
+
+## The hostname
+The default config for nginx will pass on the Host header so the service at the
+other end of the tunnel will know the public Host. If your service is fussy and
+old listens for a specific Host, you'll have to tell it to listen for your
+domain, `replace.this.example.com` in this example.
+
+Alternatively, you can tell nginx to set the host so some fixed value, like
+`localhost`. **Beware** though, if your service uses the host to write
+something into the response body for future requests (I'm looking at you
+webpack-dev-server Hot Module Reload) then this will probably fail because the
+client will send requests to the wrong Host.
+
+Make the following changes to achieve this:
+
+  1. create a file, `force-host.conf`, in this directory
+      ```
+      # force-host.conf
+      proxy_set_header Host localhost;
+      ```
+  1. edit the `docker-compose.yml` to mount our new file into nginx
+      ```yaml
+      nginx-proxy:
+        ...
+        volumes:
+          ...
+          - "./force-host.conf:/etc/nginx/conf.d/force-host.conf:ro"
+      ```
+  1. restart the stack
+      ```bash
+      docker-compose up -d
+      ```
