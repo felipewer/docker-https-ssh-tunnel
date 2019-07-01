@@ -23,4 +23,4 @@ RUN \
 
 VOLUME /home/tunnel/.ssh/authorized_keys
 
-CMD /usr/sbin/sshd -D
+CMD /usr/sbin/sshd -D -e
