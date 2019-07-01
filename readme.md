@@ -62,3 +62,12 @@ Make the following changes to achieve this:
       ```bash
       docker-compose up -d
       ```
+
+## Troubleshooting
+If you get prompted for a password for the `tunnel` user, something has gone
+wrong. There is no password and the publickey auth method should've been used.
+
+The easiest thing to check first is to restart the sshd container:
+```bash
+docker restart ssh-reverse-tunnel
+```
