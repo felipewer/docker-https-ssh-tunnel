@@ -1,0 +1,4 @@
+Copy this file to `identity.pub` and replace the content with your own public
+SSH key. Or just create that file. It should start with something like:
+
+ssh-rsa AAAAB3Nz...
